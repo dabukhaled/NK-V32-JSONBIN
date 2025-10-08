@@ -1,0 +1,842 @@
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Permissions-Policy" content="clipboard-write=*">
+    <title>New Koktil-aflam v32</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles-addition.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <script src="jsonbinService.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- رأس التطبيق -->
+        <header id="app-header">
+            <div class="logo">
+                <h1>New Koktil-aflam v32</h1>
+            </div>
+            <!-- نموذج إضافة فيلم جديد -->
+            <div class="add-movie-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="add-movie-url" placeholder="اسحب وأفلت أو انسخ رابط الفيلم هنا" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="add-movie-name" placeholder="اسم الفيلم (اختياري)" />
+                    </div>
+                    <div class="form-group">
+                        <select id="add-movie-category"></select>
+                    </div>
+                    <button id="add-movie-submit" type="button">
+                        <i class="fas fa-plus"></i> إضافة
+                    </button>
+                </div>
+            </div>
+            <div class="header-bottom">
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="ابحث عن فيلم أو مسلسل...">
+                    <button id="search-app-btn" title="البحث داخل التطبيق"><i class="fas fa-search"></i> داخلي</button>
+                    <button id="search-google-btn" title="البحث في Google وفتح النتائج داخل التطبيق"><i class="fab fa-google"></i> Google</button>
+                    <button id="search-yandex-btn" title="البحث في Yandex وفتح النتائج داخل التطبيق"><i class="fas fa-globe"></i> Yandex</button>
+                </div>
+                <div class="settings-btn">
+                    <button id="settings-btn"><i class="fas fa-cog"></i> الإعدادات</button>
+                </div>
+                <div class="refresh-cloud-btn">
+                    <button id="refresh-from-cloud" title="تحديث البيانات من السحابة">
+                        <i class="fas fa-cloud-download-alt"></i> تحديث من السحابة
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- قسم الأقسام الرئيسية -->
+        <div class="categories-section" id="categories-section">
+            <div class="main-categories">
+                <h2>الأقسام العامة الرئيسية</h2>
+                <ul id="main-categories-list">
+                    <li data-category="all" class="active">جميع الأفلام والمسلسلات <span class="counter">0</span></li>
+                    <li data-category="old-arabic">أفلام عربية قديمة <span class="counter">0</span></li>
+                    <li data-category="new-arabic">أفلام عربية جديدة <span class="counter">0</span></li>
+                    <li data-category="series">المسلسلات <span class="counter">0</span></li>
+                    <li data-category="foreign1">أفلام أجنبية 1 <span class="counter">0</span></li>
+                    <li data-category="foreign2">أفلام أجنبية 2 <span class="counter">0</span></li>
+                    <li data-category="foreign3">أفلام أجنبية 3 <span class="counter">0</span></li>
+                    <li data-category="horror">أفلام الرعب <span class="counter">0</span></li>
+                    <li data-category="series-movies">سلاسل الأفلام <span class="counter">0</span></li>
+                    <li data-category="stars">أفلام النجوم <span class="counter">0</span></li>
+                    <li data-category="family">أفلام عائلية <span class="counter">0</span></li>
+                </ul>
+            </div>
+
+            <div class="sub-categories">
+                <h2>الأقسام العامة الفرعية</h2>
+                <ul id="sub-categories-list">
+                    <li data-category="selected1">أفلام مختارة 1 <span class="counter">0</span></li>
+                    <li data-category="selected2">أفلام مختارة 2 <span class="counter">0</span></li>
+                    <li data-category="favorite1">مفضلة أفلام 1 <span class="counter">0</span></li>
+                    <li data-category="favorite2">مفضلة أفلام 2 <span class="counter">0</span></li>
+                </ul>
+            </div>
+
+            <div class="special-categories">
+                <h2>الأقسام الخاصة - الرئيسية</h2>
+                <ul id="special-categories-list">
+                    <li data-category="r1">قسم الأفلام R1 <span class="counter">0</span></li>
+                    <li data-category="r2">قسم الأفلام R2 <span class="counter">0</span></li>
+                    <li data-category="s1">قسم الأفلام S1 <span class="counter">0</span></li>
+                    <li data-category="s2">قسم الأفلام S2 <span class="counter">0</span></li>
+                    <li data-category="s3">قسم الاكس S3 <span class="counter">0</span></li>
+                    <li data-category="s-sites">قسم S SITES <span class="counter">0</span></li>
+                </ul>
+            </div>
+
+            <div class="special-sub-categories">
+                <h2>الأقسام الخاصة - الفرعية</h2>
+                <ul id="special-sub-categories-list">
+                    <li data-category="selected-rs1">أفلام مختارة R+S1 <span class="counter">0</span></li>
+                    <li data-category="selected-rs2">أفلام مختارة R+S2 <span class="counter">0</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- منطقة السحب والإفلات للأقسام الخاصة -->
+        <div id="dropzone-section" class="dropzone-section hidden">
+            <div id="s3-dropzone" class="dropzone">
+                <h3>قسم الاكس S3</h3>
+                <p>اسحب وأفلت ملفات الفيديو أو روابط الأفلام هنا</p>
+                <input type="text" placeholder="أو الصق الروابط هنا" id="s3-links-input">
+                <button id="s3-add-btn">إضافة</button>
+            </div>
+            <div id="s-sites-dropzone" class="dropzone">
+                <h3>قسم S SITES</h3>
+                <p>اسحب وأفلت ملفات الفيديو أو روابط الأفلام هنا</p>
+                <input type="text" placeholder="أو الصق الروابط هنا" id="s-sites-links-input">
+                <button id="s-sites-add-btn">إضافة</button>
+            </div>
+        </div>
+
+        <!-- محتوى الأفلام الرئيسي -->
+        <main id="content-section">
+            <div class="content-header">
+                <h2 id="current-category">جميع الأفلام والمسلسلات</h2>
+                <div class="filter-controls">
+                    <!-- أيقونات التنقل بين الصفحات -->
+                    <div class="header-navigation">
+                        <button id="header-prev-page" class="nav-btn" disabled title="الصفحة السابقة (A أو ←)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <span id="header-page-info" class="page-info" title="رقم الصفحة الحالية / العدد الإجمالي للصفحات">
+                            <span id="header-current-page">1</span>/<span id="header-total-pages">1</span>
+                        </span>
+                        <button id="header-next-page" class="nav-btn" disabled title="الصفحة التالية (D أو →)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+
+                    <div class="select-container">
+                        <select id="sort-options">
+                            <option value="name">1. ترتيب حسب الاسم</option>
+                            <option value="site">2. ترتيب حسب الموقع</option>
+                            <option value="date">3. ترتيب حسب التاريخ (تنازلي)</option>
+                            <option value="date-asc">4. ترتيب حسب التاريخ (تصاعدي)</option>
+                            <option value="star" class="star-sort-option hidden">5. ترتيب حسب النجم</option>
+                        </select>
+                        <div class="number-input-container">
+                            <input type="number" id="sort-options-input" class="number-input" placeholder="رقم الترتيب (1-5)" min="1" max="5" title="اكتب رقم الترتيب: 1=الاسم، 2=الموقع، 3=التاريخ تنازلي، 4=التاريخ تصاعدي، 5=النجم" onkeypress="if(event.key==='Enter') applySortOption()">
+                            <button id="sort-options-apply" class="apply-btn" title="تطبيق الترتيب" onclick="applySortOption()">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- خانة اختيار الموقع - تظهر عند اختيار ترتيب حسب الموقع -->
+                    <div class="select-container filter-select hidden" id="site-filter-container">
+                        <select id="site-filter">
+                            <option value="">0. جميع المواقع</option>
+                        </select>
+                        <div class="number-input-container">
+                            <input type="number" id="site-filter-input" class="number-input" placeholder="رقم الموقع" min="0" title="اكتب رقم الموقع (0 للكل، أو رقم الموقع من القائمة)" onkeypress="if(event.key==='Enter') applySiteFilter()">
+                            <button id="site-filter-apply" class="apply-btn" title="تطبيق فلتر الموقع" onclick="applySiteFilter()">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- خانة اختيار النجم - تظهر عند اختيار ترتيب حسب النجم في قسم أفلام النجوم -->
+                    <div class="select-container filter-select hidden" id="star-filter-container">
+                        <select id="star-filter">
+                            <option value="">0. جميع النجوم</option>
+                        </select>
+                        <div class="number-input-container">
+                            <input type="number" id="star-filter-input" class="number-input" placeholder="رقم النجم" min="0" title="اكتب رقم النجم (0 للكل، أو رقم النجم من القائمة)" onkeypress="if(event.key==='Enter') applyStarFilter()">
+                            <button id="star-filter-apply" class="apply-btn" title="تطبيق فلتر النجم" onclick="applyStarFilter()">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="select-container">
+                        <select id="view-mode">
+                            <option value="grid">1. عرض شبكي</option>
+                            <option value="list">2. عرض قائمة</option>
+                        </select>
+                        <div class="number-input-container">
+                            <input type="number" id="view-mode-input" class="number-input" placeholder="رقم العرض (1-2)" min="1" max="2" title="اكتب رقم العرض: 1=شبكي، 2=قائمة" onkeypress="if(event.key==='Enter') applyViewMode()">
+                            <button id="view-mode-apply" class="apply-btn" title="تطبيق نوع العرض" onclick="applyViewMode()">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="movies-container" class="grid-view"></div>
+
+            <div class="pagination-controls">
+                <button id="prev-page" disabled><i class="fas fa-chevron-right"></i> السابق</button>
+                <span id="page-info">صفحة <span id="current-page">1</span> من <span id="total-pages">1</span></span>
+                <button id="next-page" disabled>التالي <i class="fas fa-chevron-left"></i></button>
+            </div>
+        </main>
+    </div>
+
+    <!-- مودال الإعدادات -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>الإعدادات</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div id="password-section">
+                <h3>يرجى إدخال كلمة المرور</h3>
+                <input type="password" id="password-input" placeholder="كلمة المرور">
+                <button id="submit-password">دخول</button>
+            </div>
+            <div id="settings-content" class="hidden">
+                <div class="settings-tabs">
+                    <button class="tab-btn active" data-tab="protection">الحماية</button>
+                    <button class="tab-btn" data-tab="data">حفظ واسترجاع البيانات</button>
+                    <button class="tab-btn" data-tab="add-movies">إضافة الأفلام</button>
+                    <button class="tab-btn" data-tab="manage-categories">إدارة الأقسام</button>
+                    <button class="tab-btn" data-tab="manage-subcategories">قسم إدارة الأقسام الفرعية</button>
+                    <button class="tab-btn" data-tab="manage-movies">إدارة الأفلام</button>
+                    <button class="tab-btn" data-tab="manage-sites">إدارة المواقع</button>
+                </div>
+
+                <div id="manage-subcategories-tab" class="tab-content">
+                    <h3>إدارة الأقسام الفرعية</h3>
+                    <div class="subcategories-management-info">
+                        <p>يمكنك من هنا إدارة الأقسام الفرعية وتصدير واستيراد بياناتها</p>
+                    </div>
+
+                    <div class="subcategories-container">
+                        <div class="subcategory-type-selection">
+                            <div class="form-group">
+                                <label for="subcategory-type-select">نوع القسم الفرعي:</label>
+                                <select id="subcategory-type-select">
+                                    <option value="sub">الأقسام العامة الفرعية</option>
+                                    <option value="specialSub">الأقسام الخاصة الفرعية</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="subcategory-actions-container">
+                            <div class="action-group export-import-group">
+                                <h4><i class="fas fa-exchange-alt"></i> تصدير واستيراد البيانات</h4>
+                                <div class="action-buttons">
+                                    <button id="export-subcategories-btn" class="action-btn export-btn">
+                                        <i class="fas fa-download"></i> تصدير بيانات الأقسام الفرعية
+                                    </button>
+                                    <input type="file" id="import-subcategories-file" accept=".json" style="display:none">
+                                    <button id="import-subcategories-btn" class="action-btn import-btn">
+                                        <i class="fas fa-upload"></i> استيراد بيانات الأقسام الفرعية
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="action-group danger-group">
+                                <h4><i class="fas fa-exclamation-triangle"></i> عمليات خطيرة</h4>
+                                <div class="action-buttons">
+                                    <button id="delete-subcategories-movies-btn" class="action-btn danger-btn">
+                                        <i class="fas fa-trash-alt"></i> حذف كل أفلام الأقسام الفرعية
+                                    </button>
+                                </div>
+                                <p class="warning-text">تحذير: هذه العملية لا يمكن التراجع عنها!</p>
+                            </div>
+                        </div>
+
+                        <div id="subcategories-export-status" class="status-container"></div>
+                    </div>
+                </div>
+
+                <div id="protection-tab" class="tab-content active">
+                    <h3>قسم الحماية</h3>
+                    <div class="form-group">
+                        <label for="new-password">كلمة المرور الجديدة:</label>
+                        <input type="password" id="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">تأكيد كلمة المرور:</label>
+                        <input type="password" id="confirm-password">
+                    </div>
+                    <button id="change-password-btn">تغيير كلمة المرور</button>
+
+                    <div class="toggle-special-sections">
+                        <h4>الأقسام الخاصة</h4>
+                        <button id="toggle-special-btn">إخفاء/إظهار الأقسام الخاصة</button>
+                    </div>
+
+                    <div class="movie-open-setting">
+                        <h4>طريقة تشغيل الأفلام</h4>
+                        <div class="form-group">
+                            <select id="movie-open-mode">
+                                <option value="internal">تشغيل داخل التطبيق</option>
+                                <option value="external" selected>تشغيل في متصفح خارجي</option>
+                            </select>
+                        </div>
+                        <button id="save-open-mode-btn">حفظ</button>
+                    </div>
+                </div>
+
+                <div id="data-tab" class="tab-content">
+                    <h3>حفظ واسترجاع البيانات</h3>
+                    <div class="export-section">
+                        <h4>تصدير البيانات</h4>
+                        <button id="export-all-btn">تصدير كل البيانات</button>
+
+                        <!-- إضافة قسم تصدير البيانات حسب التاريخ -->
+                        <div class="date-export-section">
+                            <h4>تصدير البيانات حسب التاريخ</h4>
+                            <div class="form-group">
+                                <label for="export-date-type">نوع التصدير:</label>
+                                <select id="export-date-type">
+                                    <option value="after-date">البيانات المضافة بعد تاريخ محدد</option>
+                                    <option value="last-days">البيانات المضافة خلال الأيام الأخيرة</option>
+                                    <option value="last-count">آخر عدد محدد من الأفلام</option>
+                                </select>
+                            </div>
+
+                            <div id="after-date-options" class="date-option">
+                                <div class="form-group">
+                                    <label for="export-after-date">التاريخ:</label>
+                                    <input type="date" id="export-after-date">
+                                </div>
+                            </div>
+
+                            <div id="last-days-options" class="date-option hidden">
+                                <div class="form-group">
+                                    <label for="export-days-count">عدد الأيام:</label>
+                                    <select id="export-days-count">
+                                        <option value="1">آخر يوم</option>
+                                        <option value="2">آخر يومين</option>
+                                        <option value="7">آخر أسبوع</option>
+                                        <option value="14">آخر أسبوعين</option>
+                                        <option value="30">آخر شهر</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="last-count-options" class="date-option hidden">
+                                <div class="form-group">
+                                    <label for="export-movies-count">عدد الأفلام:</label>
+                                    <input type="number" id="export-movies-count" min="1" value="100" placeholder="مثال: 100">
+                                </div>
+                            </div>
+
+                            <button id="export-by-date-btn">تصدير</button>
+                        </div>
+                    </div>
+
+                    <div class="import-section">
+                        <h4>استيراد البيانات</h4>
+                        <div class="import-speed-settings">
+                            <h5>سرعة الاستيراد:</h5>
+                            <div class="speed-options">
+                                <label>
+                                    <input type="radio" name="import-speed" value="slow" id="import-speed-slow">
+                                    <span>بطيئة (أكثر استقراراً)</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="import-speed" value="medium" id="import-speed-medium" checked>
+                                    <span>متوسطة (متوازنة)</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="import-speed" value="fast" id="import-speed-fast">
+                                    <span>سريعة (قد تكون أقل استقراراً)</span>
+                                </label>
+                            </div>
+                            <button id="set-default-speed-btn">تعيين كسرعة افتراضية</button>
+                        </div>
+                        <div class="import-dropzone" id="import-dropzone">
+                            <p>اسحب وأفلت ملفات JSON هنا</p>
+                            <p>أو</p>
+                            <label for="import-file-input" class="btn">اختر ملفًا</label>
+                            <input type="file" id="import-file-input" accept=".json" multiple>
+                        </div>
+
+                        <div class="import-buttons-container">
+                            <button id="import-btn" class="import-btn-basic">
+                                <i class="fas fa-upload"></i>
+                                استيراد عادي
+                                <small>استبدال البيانات</small>
+                            </button>
+
+                            <button id="enhanced-import-btn" class="import-btn-enhanced">
+                                <i class="fas fa-sync-alt"></i>
+                                استيراد محسن
+                                <small>مزامنة ذكية مع عرض التقدم</small>
+                            </button>
+                            <input type="file" id="enhanced-import-file" accept=".json" multiple style="display: none;">
+                        </div>
+                    </div>
+                    <div class="delete-section">
+                        <h4>حذف البيانات</h4>
+                        <button id="delete-all-data-btn" class="danger-btn">حذف كل بيانات التطبيق</button>
+                    </div>
+                </div>
+
+                <div id="add-movies-tab" class="tab-content">
+                    <h3>إضافة الأفلام</h3>
+                    <div class="manual-add-section">
+                        <h4>إضافة يدوية</h4>
+                        <div class="form-group">
+                            <label for="movie-name">اسم الفيلم/المسلسل:</label>
+                            <input type="text" id="movie-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="movie-img">رابط الصورة:</label>
+                            <input type="text" id="movie-img">
+                        </div>
+                        <div class="form-group">
+                            <label for="movie-href">رابط التشغيل:</label>
+                            <input type="text" id="movie-href">
+                        </div>
+                        <div class="form-group">
+                            <label for="movie-category">القسم:</label>
+                            <select id="movie-category"></select>
+                        </div>
+                        <div class="form-group hidden" id="star-name-group">
+                            <label for="star-name">اسم النجم:</label>
+                            <input type="text" id="star-name">
+                        </div>
+                        <button id="add-movie-btn">إضافة</button>
+                    </div>
+
+                    <div class="json-add-section">
+                        <h4>إضافة من ملف JSON</h4>
+                        <div class="import-dropzone" id="movies-import-dropzone">
+                            <p>اسحب وأفلت ملفات JSON هنا</p>
+                            <p>أو</p>
+                            <label for="movies-import-file" class="btn">اختر ملفًا</label>
+                            <input type="file" id="movies-import-file" accept=".json" multiple>
+                        </div>
+                        <div class="form-group">
+                            <label for="import-category">القسم المستهدف:</label>
+                            <select id="import-category"></select>
+                        </div>
+                        <div class="form-group hidden" id="import-star-name-group">
+                            <label for="import-star-name">اسم النجم (للأفلام التي لا تحتوي على اسم النجم):</label>
+                            <input type="text" id="import-star-name" placeholder="اتركه فارغاً إذا كانت الأفلام تحتوي على أسماء النجوم">
+                        </div>
+                        <button id="import-movies-btn">استيراد الأفلام</button>
+                    </div>
+                </div>
+
+                <div id="manage-categories-tab" class="tab-content">
+                    <h3>إدارة الأقسام</h3>
+                    <div class="category-selection">
+                        <label for="manage-category-select">اختر القسم:</label>
+                        <select id="manage-category-select" style="width: 220px; display: inline-block;"></select>
+                        <span id="category-count-display" class="category-count-info" style="margin-right: 15px; padding: 6px 14px; background: #f5f5f5; border-radius: 4px; font-weight: bold; color: #333; display: none; vertical-align: middle;"></span>
+                    </div>
+
+                    <!-- أداة ترتيب الأفلام -->
+                    <div class="category-sorting-section">
+                        <h4>ترتيب أفلام القسم</h4>
+                        <div class="sorting-controls">
+                            <div class="form-group">
+                                <label for="category-sort-options">طريقة الترتيب:</label>
+                                <select id="category-sort-options">
+                                    <option value="name">ترتيب حسب الاسم</option>
+                                    <option value="site">ترتيب حسب الموقع</option>
+                                    <option value="date">ترتيب حسب التاريخ (تنازلي)</option>
+                                    <option value="date-asc">ترتيب حسب التاريخ (تصاعدي)</option>
+                                    <option value="star" class="star-sort-option hidden">ترتيب حسب النجم</option>
+                                </select>
+                            </div>
+
+                            <!-- خانة اختيار الموقع - تظهر عند اختيار ترتيب حسب الموقع -->
+                            <div class="form-group">
+                                <label for="category-site-filter">تصفية حسب الموقع:</label>
+                                <select id="category-site-filter" class="filter-select hidden">
+                                    <option value="">جميع المواقع</option>
+                                </select>
+                            </div>
+
+                            <!-- خانة اختيار النجم - تظهر عند اختيار ترتيب حسب النجم في قسم أفلام النجوم -->
+                            <div class="form-group">
+                                <label for="category-star-filter">تصفية حسب النجم:</label>
+                                <select id="category-star-filter" class="filter-select hidden">
+                                    <option value="">جميع النجوم</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category-view-mode">طريقة العرض:</label>
+                                <select id="category-view-mode">
+                                    <option value="grid">عرض شبكي</option>
+                                    <option value="list">عرض قائمة</option>
+                                </select>
+                            </div>
+
+                            <button id="apply-category-sorting">تطبيق الترتيب</button>
+                            <button id="save-category-sorting">حفظ كإعداد افتراضي للقسم</button>
+                        </div>
+                    </div>
+
+                    <div class="category-actions">
+                        <button id="delete-category-movies">حذف أفلام القسم</button>
+                        <button id="move-category-movies">نقل أفلام القسم</button>
+                        <button id="copy-category-movies">نسخ أفلام القسم</button>
+                        <button id="toggle-category-visibility">إخفاء/إظهار القسم</button>
+                        <button id="export-category">تصدير بيانات القسم</button>
+                        <button id="import-to-category">استيراد إلى القسم</button>
+                        <button id="clean-names-btn">تنظيف أسماء الأفلام</button>
+                    </div>
+
+                    <div id="move-category-dialog" class="hidden">
+                        <h4>نقل إلى:</h4>
+                        <select id="target-category-select"></select>
+                        <button id="confirm-move-category">تأكيد النقل</button>
+                        <button id="cancel-move-category">إلغاء</button>
+                    </div>
+
+                    <div id="copy-category-dialog" class="hidden">
+                        <h4>نسخ إلى:</h4>
+                        <select id="copy-target-category-select"></select>
+                        <button id="confirm-copy-category">تأكيد النسخ</button>
+                        <button id="cancel-copy-category">إلغاء</button>
+                    </div>
+                </div>
+
+                <div id="manage-movies-tab" class="tab-content">
+                    <h3>إدارة الأفلام</h3>
+                    <div class="manage-movies-filters">
+                        <div class="form-group">
+                            <label for="filter-category">تصفية حسب القسم:</label>
+                            <select id="filter-category"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-site">تصفية حسب الموقع:</label>
+                            <select id="filter-site"></select>
+                        </div>
+                    </div>
+
+                    <div class="site-actions hidden" id="site-actions">
+                        <h4>إجراءات الموقع</h4>
+                        <button id="move-site-movies">نقل أفلام الموقع</button>
+                        <button id="delete-site-movies">حذف أفلام الموقع</button>
+                        <button id="hide-site-movies">إخفاء أفلام الموقع</button>
+                    </div>
+
+                    <div id="movies-management-list"></div>
+                </div>
+
+                <div id="manage-sites-tab" class="tab-content">
+                    <h3>إدارة المواقع</h3>
+                    <div class="sites-management-info">
+                        <p>يمكنك من هنا إدارة جميع المواقع الموجودة في التطبيق وإجراء عمليات جماعية على أفلامها</p>
+                    </div>
+
+                    <div class="sites-management-actions">
+                        <button id="cleanup-duplicate-sites" class="btn warning">
+                            <i class="fas fa-broom"></i>
+                            تنظيف المواقع المكررة في جميع المجلدات
+                        </button>
+                        <button id="show-hidden-sites" class="btn info">
+                            <i class="fas fa-eye-slash"></i>
+                            عرض المواقع المخفية
+                        </button>
+                    </div>
+
+                    <div class="sites-selection-container">
+                        <div class="form-group">
+                            <label for="site-search-input">البحث عن موقع:</label>
+                            <input type="text" id="site-search-input" placeholder="اكتب اسم الموقع للبحث..." style="width: 220px; display: inline-block; vertical-align: middle;"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="sites-select">اختر الموقع:</label>
+                            <select id="sites-select">
+                                <option value="">-- اختر موقعاً --</option>
+                            </select>
+                            <button id="refresh-sites-select" class="refresh-btn">
+                                <i class="fas fa-sync-alt"></i> تحديث
+                            </button>
+                        </div>
+
+                        <div id="selected-site-info" class="selected-site-info hidden">
+                            <div class="site-info-card">
+                                <div class="site-info-header">
+                                    <div class="site-icon">
+                                        <i class="fas fa-globe"></i>
+                                    </div>
+                                    <div class="site-details">
+                                        <h4 id="selected-site-name"></h4>
+                                        <p id="selected-site-url"></p>
+                                    </div>
+                                </div>
+                                <div class="site-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">الأفلام:</span>
+                                        <span id="selected-site-movies" class="stat-value">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">المسلسلات:</span>
+                                        <span id="selected-site-series" class="stat-value">0</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">المجموع:</span>
+                                        <span id="selected-site-total" class="stat-value">0</span>
+                                    </div>
+                                </div>
+                                <div id="selected-site-location" class="site-location hidden">
+                                    <h5 class="location-title">
+                                        <i class="fas fa-map-marker-alt"></i> معلومات القسم
+                                    </h5>
+                                    <div class="location-details">
+                                        <!-- سيتم ملء هذا القسم ديناميكياً -->
+                                    </div>
+                                </div>
+                                <div class="site-actions">
+                                    <h5 class="actions-title">
+                                        <i class="fas fa-cogs"></i> العمليات المتاحة
+                                    </h5>
+                                    <div class="actions-buttons">
+                                        <button id="move-site-btn" class="site-action-btn move">
+                                            <i class="fas fa-exchange-alt"></i> نقل جميع الأفلام
+                                        </button>
+                                        <button id="delete-site-btn" class="site-action-btn delete">
+                                            <i class="fas fa-trash-alt"></i> حذف جميع الأفلام
+                                        </button>
+                                        <button id="hide-site-btn" class="site-action-btn hide">
+                                            <i class="fas fa-eye-slash"></i> إخفاء جميع الأفلام
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- قسم المواقع المخفية -->
+                    <div id="hidden-sites-section" class="hidden-sites-section hidden">
+                        <div class="section-header">
+                            <h4><i class="fas fa-eye-slash"></i> المواقع المخفية</h4>
+                            <button id="close-hidden-sites" class="close-btn">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="hidden-sites-info">
+                            <p>هنا يمكنك عرض جميع المواقع التي تم إخفاؤها وإعادة إظهارها أو تشغيل بعض أفلامها</p>
+                        </div>
+                        <div id="hidden-sites-list" class="hidden-sites-list">
+                            <!-- سيتم ملء هذا القسم ديناميكياً -->
+                        </div>
+                    </div>
+
+                    <!-- مودال تفاصيل الموقع المخفي -->
+                    <div id="hidden-site-details-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 id="hidden-site-modal-title">تفاصيل الموقع المخفي</h3>
+                                <span class="close">&times;</span>
+                            </div>
+                            <div class="modal-body">
+                                <div id="hidden-site-movies-list" class="hidden-site-movies-list">
+                                    <!-- سيتم ملء هذا القسم ديناميكياً -->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="show-all-from-site" class="btn success">
+                                    <i class="fas fa-eye"></i>
+                                    إظهار جميع الأفلام
+                                </button>
+                                <button class="btn secondary close-modal">
+                                    <i class="fas fa-times"></i>
+                                    إغلاق
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال تعديل الفيلم -->
+    <div id="edit-movie-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تعديل الفيلم</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="edit-movie-name">اسم الفيلم/المسلسل:</label>
+                    <input type="text" id="edit-movie-name">
+                </div>
+                <div class="form-group">
+                    <label for="edit-movie-img">رابط الصورة:</label>
+                    <input type="text" id="edit-movie-img">
+                </div>
+                <div class="form-group">
+                    <label for="edit-movie-href">رابط التشغيل:</label>
+                    <input type="text" id="edit-movie-href">
+                </div>
+                <div class="form-group">
+                    <label for="edit-movie-category">القسم:</label>
+                    <select id="edit-movie-category"></select>
+                </div>
+                <div class="form-group hidden" id="edit-star-name-group">
+                    <label for="edit-star-name">اسم النجم:</label>
+                    <input type="text" id="edit-star-name">
+                </div>
+                <input type="hidden" id="edit-movie-id">
+            </div>
+            <div class="modal-footer">
+                <button id="save-edit-btn">حفظ التغييرات</button>
+                <button id="cancel-edit-btn">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال تشغيل الفيلم -->
+    <div id="play-movie-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="play-movie-title"></h2>
+                <div class="modal-header-actions">
+                    <button id="add-to-subcategory-from-player" class="btn secondary" title="إضافة إلى قسم فرعي">
+                        <i class="fas fa-star"></i>
+                        إضافة إلى قسم
+                    </button>
+                    <span class="close">&times;</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <iframe id="movie-player" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال إضافة فيلم إلى قسم فرعي -->
+    <div id="add-to-subcategory-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>إضافة إلى قسم فرعي</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3 id="subcategory-movie-name"></h3>
+                <div class="subcategory-options">
+                    <div id="subcategory-options-container" class="options-container"></div>
+                </div>
+                <input type="hidden" id="subcategory-movie-id">
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-subcategory-btn">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال تنظيف أسماء الأفلام -->
+    <div id="clean-names-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تنظيف أسماء الأفلام</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>القسم: <span id="clean-category-name"></span></h3>
+                <p>أدخل الكلمات المراد حذفها من أسماء الأفلام (كلمة واحدة في كل سطر):</p>
+                <textarea id="words-to-remove" placeholder="مثال:
+HD
+720p
+1080p
+BluRay
+web.dl
+مترجم
+اون لاين"
+                rows="10" class="words-input"></textarea>
+                <input type="hidden" id="clean-category-id">
+            </div>
+            <div class="modal-footer">
+                <button id="start-cleaning-btn">بدء التنظيف</button>
+                <button id="cancel-cleaning-btn">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال تأكيد الحذف -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تأكيد</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-yes">نعم</button>
+                <button id="confirm-no">لا</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- مودال العمليات الجماعية للمواقع -->
+    <div id="site-bulk-action-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="site-action-title">تأكيد العملية</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="site-action-message"></p>
+                <div id="site-action-options" class="hidden">
+                    <div class="form-group">
+                        <label for="site-target-category-select">اختر القسم المستهدف:</label>
+                        <select id="site-target-category-select"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="site-action-confirm">تأكيد</button>
+                <button id="site-action-cancel">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نتائج البحث -->
+    <div id="search-results" class="search-results hidden">
+        <div class="search-results-header">
+            <h3>نتائج البحث</h3>
+            <span class="close-search">&times;</span>
+        </div>
+        <div id="search-results-container"></div>
+    </div>
+
+    <!-- أزرار التكبير/التصغير -->
+    <div class="zoom-controls">
+        <button id="zoom-out-btn" class="zoom-btn"><i class="fas fa-search-minus"></i></button>
+        <button id="zoom-reset-btn" class="zoom-btn"><i class="fas fa-undo"></i></button>
+        <button id="zoom-in-btn" class="zoom-btn"><i class="fas fa-search-plus"></i></button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>ipt>
+</body>
+</html>

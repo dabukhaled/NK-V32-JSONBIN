@@ -1,0 +1,145 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2023-10-15T12:30:45.123Z",
+  "movies": [],
+  "series": [],
+  "categories": {
+    "main": [
+      {
+        "id": "all",
+        "name": "جميع الأفلام والمسلسلات",
+        "count": 0
+      },
+      {
+        "id": "old-arabic",
+        "name": "أفلام عربية قديمة",
+        "count": 0
+      },
+      {
+        "id": "new-arabic",
+        "name": "أفلام عربية جديدة",
+        "count": 0
+      },
+      {
+        "id": "series",
+        "name": "المسلسلات",
+        "count": 0
+      },
+      {
+        "id": "foreign1",
+        "name": "أفلام أجنبية 1",
+        "count": 0
+      },
+      {
+        "id": "foreign2",
+        "name": "أفلام أجنبية 2",
+        "count": 0
+      },
+      {
+        "id": "foreign3",
+        "name": "أفلام أجنبية 3",
+        "count": 0
+      },
+      {
+        "id": "horror",
+        "name": "أفلام الرعب",
+        "count": 0
+      },
+      {
+        "id": "series-movies",
+        "name": "سلاسل الأفلام",
+        "count": 0
+      },
+      {
+        "id": "stars",
+        "name": "أفلام النجوم",
+        "count": 0
+      },
+      {
+        "id": "family",
+        "name": "أفلام عائلية",
+        "count": 0
+      }
+    ],
+    "sub": [
+      {
+        "id": "selected1",
+        "name": "أفلام مختارة 1",
+        "count": 0
+      },
+      {
+        "id": "selected2",
+        "name": "أفلام مختارة 2",
+        "count": 0
+      },
+      {
+        "id": "favorite1",
+        "name": "مفضلة أفلام 1",
+        "count": 0
+      },
+      {
+        "id": "favorite2",
+        "name": "مفضلة أفلام 2",
+        "count": 0
+      }
+    ],
+    "special": [
+      {
+        "id": "r1",
+        "name": "قسم الأفلام R1",
+        "count": 0
+      },
+      {
+        "id": "r2",
+        "name": "قسم الأفلام R2",
+        "count": 0
+      },
+      {
+        "id": "s1",
+        "name": "قسم الأفلام S1",
+        "count": 0
+      },
+      {
+        "id": "s2",
+        "name": "قسم الأفلام S2",
+        "count": 0
+      },
+      {
+        "id": "s3",
+        "name": "قسم الاكس S3",
+        "count": 0
+      },
+      {
+        "id": "s-sites",
+        "name": "قسم S SITES",
+        "count": 0
+      }
+    ],
+    "specialSub": [
+      {
+        "id": "selected-rs1",
+        "name": "أفلام مختارة R+S1",
+        "count": 0
+      },
+      {
+        "id": "selected-rs2",
+        "name": "أفلام مختارة R+S2",
+        "count": 0
+      }
+    ]
+  },
+  "settings": {
+    "password": "565999",
+    "showSpecialSections": false,
+    "viewMode": "grid",
+    "sortBy": "name",
+    "selectedSite": "",
+    "selectedStar": "",
+    "itemsPerPage": 50,
+    "openMoviesExternally": true,
+    "zoomLevel": 1,
+    "currentPageTitle": "New Koktil-aflam v32",
+    "authRemember": false,
+    "authExpiry": 0
+  }
+}
